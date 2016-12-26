@@ -81,9 +81,9 @@
       </nav>
     </div>
     <main class="mdl-layout__content mdl-color--grey-100">
-
+<section class="fullheight">
       <!-- Contents of main: input and map -->
-      <div class="mdl-typography--text-center fullheight" data-bind="visible: hideStart">
+      <div class="mdl-typography--text-center" data-bind="visible: hideStart">
         <div class="mdl-card mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col mdl-grid fullheight-card">
           <div class="mdl-card__media">
           </div>
@@ -100,13 +100,13 @@
       </div>
 
       <!--MAP view -->
-      <div  style="height: 90vh;" data-bind="visible: showMap">
-        <div style="height: 90%;" class="mdl-card mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col mdl-grid main-card">
+      <div  class="fullheight" data-bind="visible: showMap">
+        <div class="fullheight-card mdl-card mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col mdl-grid main-card">
           <div class="mdl-card__media"><img src="" data-bind="attr: { src: fullUrl }">
           </div>
         </div>
       </div>
-
+</section>
   </main>
   </div>
 
