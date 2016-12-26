@@ -181,10 +181,10 @@ html, body {
           align-items: center;
 }
 
-.fullheight-card {
+.fullheight {
   height: 85vh;
 }
 
 .fullheight-card {
-  height: 85%;
+  height: 100%;
 }
