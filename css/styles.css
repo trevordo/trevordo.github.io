@@ -180,3 +180,11 @@ html, body {
       -ms-flex-align: center;
           align-items: center;
 }
+
+.fullheight-card {
+  height: 85vh;
+}
+
+.fullheight-card {
+  height: 85%;
+}
