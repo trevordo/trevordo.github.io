@@ -60,6 +60,7 @@
         var self = this;
         // call MapModel method
         this.mapModel = MapModel();
+		this.listModel = ListModel();
 
         // visibility options
         this.showMap = ko.observable(false);
