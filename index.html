@@ -89,6 +89,11 @@
           <div class="mdl-card__supporting-text">
             <h1>Welcome to your Neighborhood!</h1>
           </div>
+
+          <div class="mdl-card__supporting-text">
+            <p data-bind="text: listUrl">This is!</p>
+          </div>
+
           <div class="mdl-card__supporting-text">
             <div class="mdl-textfield mdl-js-textfield">
               <input class="mdl-textfield__input welcome-input" type="text" id="new-location" data-bind="value: inputcity, enterKey: toggleMapVisibility">
@@ -103,9 +108,11 @@
         <div class="fullheight-card mdl-card mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col mdl-grid main-card">
           <div class="mdl-card__media"><img src="" data-bind="attr: { src: fullUrl }">
           </div>
+
           <div class="mdl-card__supporting-text">
             <p data-bind="text: listUrl">This is!</p>
           </div>
+          
         </div>
       </div>
 

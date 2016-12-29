@@ -75,10 +75,7 @@
             //}
         }.bind(this);
 
-
-
     };
-
 
  
 ko.applyBindings(new MapViewModel()); // This makes Knockout get to work
