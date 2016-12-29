@@ -44,7 +44,6 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="css/material.min.css">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
@@ -103,6 +102,9 @@
       <div  class="fullheight" data-bind="visible: showMap">
         <div class="fullheight-card mdl-card mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col mdl-grid main-card">
           <div class="mdl-card__media"><img src="" data-bind="attr: { src: fullUrl }">
+          </div>
+          <div class="mdl-card__supporting-text">
+            <h1 data-bind="text: fullUrl">This is!</h1>
           </div>
         </div>
       </div>
