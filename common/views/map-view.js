@@ -59,7 +59,7 @@
 	    var self = this;
         // call MapModel method
 		this.viewModel1 =  new mapviewModel(),
-		this.viewModel2 = new listviewModel(this.viewModel1);
+		this.viewModel2 = new listviewModel();
 
         // visibility options
         this.showMap = ko.observable(false);

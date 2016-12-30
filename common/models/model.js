@@ -3,7 +3,7 @@ var mapviewModel = function(){
 	var self = this;
 
 	this.mapUrl = ko.observable("https://maps.googleapis.com/maps/api/staticmap?center=");
-	this.inputcity = ko.observable();
+	this.inputcity = ko.observable().publishOn("inputLocation");
 	this.mapparams = ko.observable("&zoom=13&size=600x300&maptype=roadmap");
 	this.APIKey = ko.observable("&key=AIzaSyBv6ZxK0eXeud-z6aZgAYu_H8XY9ESFvus");
 
@@ -14,7 +14,7 @@ var mapviewModel = function(){
 	}, self);
 };
 
-var listviewModel = function(mvm){
+var listviewModel = function(){
 	var self = this;
 
 	this.foursqURL = "https://api.foursquare.com/v2/venues/explore?near=";
@@ -22,7 +22,7 @@ var listviewModel = function(mvm){
 	this.clientSE = "client_secret=KSWZYUKZOHKYPINL4DSP1FRGOB44WOSWWE0RSCKT55OO40SO&";
 	this.listparams = "&limit=2&query=";
 	this.v = "v=20161228";
-	this.c = ko.observable(mvm.inputcity());
+	this.c = ko.observable().subscribeTo("inputLocation");
 
 	this.listUrl = ko.pureComputed(function () {
 		// Knockout tracks dependencies automatically.
