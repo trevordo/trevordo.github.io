@@ -55,12 +55,11 @@
 	};
 
 
-    //map view model
-    function MapViewModel() {
-        var self = this;
+	var MapViewModel = (function(){
+	    var self = this;
         // call MapModel method
-        this.mapModel = MapModel();
-		this.listModel = ListModel();
+		this.viewModel1 =  new mapviewModel(),
+		this.viewModel2 = new listviewModel(this.viewModel1);
 
         // visibility options
         this.showMap = ko.observable(false);
@@ -74,11 +73,10 @@
             self.hideStart(!self.hideStart());
             //}
         }.bind(this);
+		
+	})();
 
-    };
-
- 
-ko.applyBindings(new MapViewModel()); // This makes Knockout get to work
+	ko.applyBindings(MapViewModel)
 
 }());
 
