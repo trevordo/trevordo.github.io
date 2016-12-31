@@ -58,8 +58,8 @@
 	var MapViewModel = (function(){
 	    var self = this;
         // call MapModel method
-		this.viewModel1 =  new mapviewModel(),
-		this.viewModel2 = new listviewModel();
+		this.mapviewModel =  new myApp.myModels.mapviewModel(),
+		this.listviewModel = new myApp.myModels.listviewModel();
 
         // visibility options
         this.showMap = ko.observable(false);
@@ -71,8 +71,14 @@
             //if (l) {
             self.showMap(!self.showMap());
             self.hideStart(!self.hideStart());
+			listviewModel.getLocations();
+			console.log(listviewModel.listOfLocations());
             //}
         }.bind(this);
+
+		this.submitToGetList = function() {
+			listviewModel.getLocations();
+		}.bind(this);
 		
 	})();
 

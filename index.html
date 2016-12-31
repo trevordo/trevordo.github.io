@@ -57,7 +57,7 @@
           <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
               <i class="material-icons">search</i>
             </label>
-          <div class="mdl-textfield__expandable-holder" data-bind="with: viewModel1">
+          <div class="mdl-textfield__expandable-holder" data-bind="with: mapviewModel">
             <input class="mdl-textfield__input" type="text" id="search" data-bind="value: inputcity">
             <label class="mdl-textfield__label" for="search">Enter your query...</label>
           </div>
@@ -74,7 +74,11 @@
         </div>
       </header>
       <nav class="project-navigation mdl-navigation mdl-color--blue-grey-800">
-        <p>Populate list here</p>
+        <div databind="with: listviewModel">
+          <ul databind="foreach: listOfLocations">
+            <li><span></span></li>
+          </ul>
+        </div>
         <div class="mdl-layout-spacer"></div>
         <p>a spacer above </p>
       </nav>
@@ -90,12 +94,12 @@
             <h1>Welcome to your Neighborhood!</h1>
           </div>
 
-          <div class="mdl-card__supporting-text" data-bind="with: viewModel2">
+          <div class="mdl-card__supporting-text" data-bind="with: listviewModel">
             <p data-bind="text: listUrl">This is!</p>
           </div>
 
           <div class="mdl-card__supporting-text">
-            <div class="mdl-textfield mdl-js-textfield" data-bind="with: viewModel1">
+            <div class="mdl-textfield mdl-js-textfield" data-bind="with: mapviewModel">
               <input class="mdl-textfield__input welcome-input" type="text" id="new-location" data-bind="value: inputcity, enterKey: toggleMapVisibility">
               <label class="mdl-textfield__label" for="new-location">Where do you want to explore?</label>
             </div>
@@ -106,10 +110,10 @@
       <!--MAP view -->
       <div  class="fullheight" data-bind="visible: showMap">
         <div class="fullheight-card mdl-card mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col mdl-grid main-card">
-          <div class="mdl-card__media" data-bind="with: viewModel1"><img src="" data-bind="attr: { src: fullUrl }">
+          <div class="mdl-card__media" data-bind="with: mapviewModel"><img src="" data-bind="attr: { src: fullUrl }">
           </div>
 
-          <div class="mdl-card__supporting-text" data-bind="with: viewModel2">
+          <div class="mdl-card__supporting-text" data-bind="with: listviewModel">
             <p data-bind="text: listUrl">This is!</p>
           </div>
           
@@ -122,6 +126,7 @@
   <script src="js/material.min.js"></script>
   <script src="js/knockout/knockout-latest.js"></script>
   <script src="js/knockout/knockout-postbox.js"></script>
+  <script src="js/knockout/knockout-mapping-latest.js"></script>
   <script src="js/jquery/jquery.min.js"></script>
   <script src="common/models/model.js"></script>
   <script src="common/views/map-view.js"></script>
