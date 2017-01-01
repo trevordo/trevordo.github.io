@@ -74,9 +74,9 @@
         </div>
       </header>
       <nav class="project-navigation mdl-navigation mdl-color--blue-grey-800">
-        <div databind="with: listviewModel">
-          <ul databind="foreach: listOfLocations">
-            <li><span databind="text: name"></span></li>
+        <div data-bind="with: listviewModel">
+          <ul data-bind="foreach: anotherObservableArray">
+            <li><span data-bind="text: name"></span></li>
           </ul>
         </div>
         <div class="mdl-layout-spacer"></div>

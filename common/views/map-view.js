@@ -65,6 +65,9 @@
         this.showMap = ko.observable(false);
         this.hideStart = ko.observable(true);
         
+		this.populateList = ko.observableArray();
+
+		console.log(listviewModel.anotherObservableArray());
 
         this.toggleMapVisibility = function() {
             //var l = this.inputcity().trim();
@@ -73,7 +76,8 @@
             self.hideStart(!self.hideStart());
 			listviewModel.getLocations();
 			console.log(listviewModel.listOfLocations());
-			console.log(listviewModel.listOfLocations()[0]);
+			self.populateList(listviewModel.listOfLocations());
+			console.log(populateList());
             //}
         }.bind(this);
 

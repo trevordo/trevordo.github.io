@@ -33,8 +33,17 @@ myApp.myModels = {
 			return self.foursqURL + self.c() + self.listparams + self.clientID + self.clientSE + self.v;
 		}, self);
 
+		//TESTING
+		this.anotherObservableArray = ko.observableArray([
+    { name: "Bungle", type: "Bear" },
+    { name: "George", type: "Hippo" },
+    { name: "Zippy", type: "Unknown" }
+	]);
+//TESTING
+
 		// this.JSONdataFromServer = '';
-		this.listOfLocations = ko.observableArray();
+		var mappedToArray = [];
+		this.listOfLocations = ko.observableArray(mappedToArray);
 		 
 		this.getLocations = function () {
 		$.getJSON(self.listUrl(), function(data) {	
@@ -60,7 +69,7 @@ myApp.myModels = {
 			};
 
 			//self.listOfLocations = ko.mapping.fromJS(result, {}, self.listOfLocations);
-			self.listOfLocations.push(result);
+			mappedToArray.push(result);
         };
 
         
