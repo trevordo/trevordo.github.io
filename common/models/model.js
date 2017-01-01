@@ -23,61 +23,41 @@ myApp.myModels = {
 		this.foursqURL = "https://api.foursquare.com/v2/venues/explore?near=";
 		this.clientID = "&client_id=QXZHPKM1KXHHQY02ZIBPMGYQ2QV1O5NUWBTDJWGESSS1GYF5";
 		this.clientSE = "&client_secret=KSWZYUKZOHKYPINL4DSP1FRGOB44WOSWWE0RSCKT55OO40SO";
-		this.listparams = "&limit=2&query=";
+		this.listparams = "&limit=10&query=";
 		this.v = "&v=20161228";
 		this.c = ko.observable().subscribeTo("inputLocation");
 
 		this.listUrl = ko.pureComputed(function () {
 			// Knockout tracks dependencies automatically.
-			//It knows that fullUrl depends on all params, because these get called when evaluating fullRul.
+			// Returns the Foursquare URL for JSON API Venue Explore
 			return self.foursqURL + self.c() + self.listparams + self.clientID + self.clientSE + self.v;
 		}, self);
 
-		//TESTING
-		this.anotherObservableArray = ko.observableArray([
-    { name: "Bungle", type: "Bear" },
-    { name: "George", type: "Hippo" },
-    { name: "Zippy", type: "Unknown" }
-	]);
-//TESTING
-
-		// this.JSONdataFromServer = '';
-		var mappedToArray = [];
-		this.listOfLocations = ko.observableArray(mappedToArray);
+		// 
+		this.listOfLocations = ko.observableArray();
 		 
 		this.getLocations = function () {
-		$.getJSON(self.listUrl(), function(data) {	
+			$.getJSON(self.listUrl(), function(data) {	
 
-		var JSONdataFromServer = data.response.groups[0].items;
-        
-		// console.log(JSONdataFromServer);
-		// dataFromServer = ko.mapping.fromJS(JSONdataFromServer);
-		// self.listOfLocations = ko.mapping.fromJS(JSONdataFromServer, {}, self.listOfLocations);
-		// console.log(dataFromServer);
-        // var arrayOut = dataFromServer;
-		// console.log(arrayOut);
-        // self.listOfLocations(JSONdataFromServer);
+			// assign object from JSON Foursquare
+			var JSONdataFromServer = data.response.groups[0].items;		
 
-		for (var i=0; i<JSONdataFromServer.length; i++) {
-            var arrayitem = JSONdataFromServer[i];
+			for (var i=0; i<JSONdataFromServer.length; i++) {
+				var arrayitem = JSONdataFromServer[i];
 
-			var result = {
-				name: arrayitem.venue.name,
-				lat: arrayitem.venue.location.lat,
-				lng: arrayitem.venue.location.lng,
-				category: arrayitem.venue.categories[0].name
-			};
+				var result = {
+					name: arrayitem.venue.name,
+					lat: arrayitem.venue.location.lat,
+					lng: arrayitem.venue.location.lng,
+					category: arrayitem.venue.categories[0].name
+				};
 
-			//self.listOfLocations = ko.mapping.fromJS(result, {}, self.listOfLocations);
-			mappedToArray.push(result);
-        };
-
-        
-		}); 
-
-
+				//self.listOfLocations = ko.mapping.fromJS(result, {}, self.listOfLocations);
+				self.listOfLocations.push(result);
+        		}; 
+			}); 
 		};
-		// this.dataFromServer = ko.utils.parseJson(JSONdataFromServer);
+		
 	},
 
 }

@@ -1,6 +1,6 @@
 (function () {
 
-
+	// This is from the TODOmvc examples
 	var ENTER_KEY = 13;
 	var ESCAPE_KEY = 27;
 
@@ -64,10 +64,6 @@
         // visibility options
         this.showMap = ko.observable(false);
         this.hideStart = ko.observable(true);
-        
-		this.populateList = ko.observableArray();
-
-		console.log(listviewModel.anotherObservableArray());
 
         this.toggleMapVisibility = function() {
             //var l = this.inputcity().trim();
@@ -75,14 +71,11 @@
             self.showMap(!self.showMap());
             self.hideStart(!self.hideStart());
 			listviewModel.getLocations();
-			console.log(listviewModel.listOfLocations());
-			self.populateList(listviewModel.listOfLocations());
-			console.log(populateList());
             //}
         }.bind(this);
 
 		this.submitToGetList = function() {
-			listviewModel.getLocations();
+			// another method
 		}.bind(this);
 		
 	})();
