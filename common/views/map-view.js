@@ -73,6 +73,7 @@
             self.hideStart(!self.hideStart());
 			listviewModel.getLocations();
 			console.log(listviewModel.listOfLocations());
+			console.log(listviewModel.listOfLocations()[0]);
             //}
         }.bind(this);
 

@@ -54,12 +54,13 @@ myApp.myModels = {
 
 			var result = {
 				name: arrayitem.venue.name,
-				lat: arrayitem.venue.location,
-				log: arrayitem.venue.location,
-				category: arrayitem.venue.categories.name,
+				lat: arrayitem.venue.location.lat,
+				lng: arrayitem.venue.location.lng,
+				category: arrayitem.venue.categories[0].name
 			};
 
-			self.listOfLocations = ko.mapping.fromJS(result, {}, self.listOfLocations);
+			//self.listOfLocations = ko.mapping.fromJS(result, {}, self.listOfLocations);
+			self.listOfLocations.push(result);
         };
 
         
