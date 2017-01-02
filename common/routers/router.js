@@ -1,5 +1,0 @@
-(function () {
-
-// add code here
-
-}());

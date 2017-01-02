@@ -54,14 +54,11 @@
 		}
 	};
 
-
-
-
 	var MapViewModel = (function(){
 	    var self = this;
         // call MapModel method
-		this.mapviewModel =  new myApp.myModels.mapviewModel(),
-		this.listviewModel = new myApp.myModels.listviewModel();
+		this.mapviewModel =  new myMaps.mapviewModel(),
+		this.listviewModel = new myList.listviewModel();
 
         // set visibility options
         this.showMap = ko.observable(false);
