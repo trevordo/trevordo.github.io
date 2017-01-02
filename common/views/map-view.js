@@ -55,6 +55,8 @@
 	};
 
 
+
+
 	var MapViewModel = (function(){
 	    var self = this;
         // call MapModel method
@@ -71,6 +73,7 @@
             self.hideStart(!self.hideStart());
 			// call method to get foursquare json
 			listviewModel.getLocations();
+			mapviewModel.fullUrl();
         }.bind(this);
 
 		this.queryList = function() {
