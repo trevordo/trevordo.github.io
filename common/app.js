@@ -82,6 +82,15 @@
 			// get location with query param
 			listviewModel.getLocations();
 		}.bind(this);
+			
+		this.newCity = function() {
+			// clear observableArray
+			listviewModel.listOfLocations.removeAll();
+			// Get new location
+			mapviewModel.initializeMap();
+			// get location with query param
+			listviewModel.getLocations();
+		}.bind(this);
 		
 	})();
 
