@@ -58,7 +58,7 @@
               <i class="material-icons">search</i>
             </label>
           <div class="mdl-textfield__expandable-holder" data-bind="with: mapviewModel">
-            <input class="mdl-textfield__input" type="text" id="search" data-bind="value: inputcity">
+            <input class="mdl-textfield__input" type="text" id="search" data-bind="value: inputcity, enterKey: queryList">
             <label class="mdl-textfield__label" for="search">Enter your query...</label>
           </div>
         </div>
@@ -66,21 +66,26 @@
     </header>
     <div class="project-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
       <header class="project-drawer-header">
-        <div class="mdl-layout">
-          <input class="mdl-textfield__input" type="text" id="filter" placeholder="filter places...">
+        <div class="mdl-layout" data-bind="with: listviewModel, visible: showMap">
+          <input class="mdl-textfield__input" type="text" id="filter" placeholder="filter places..." data-bind="value: q, enterKey: queryList">
         </div>
         <div>
-          <span>PUT TABS HERE</span>
+          <span>Top 10 Spots</span>
         </div>
       </header>
       <nav class="project-navigation mdl-navigation mdl-color--blue-grey-800">
-        <div data-bind="with: listviewModel">
-          <ul data-bind="foreach: listOfLocations">
-            <li><span data-bind="text: name"></span></li>
+       <!--Start before neighborhood search -->
+       <div  data-bind="visible: hideStart">
+         <p class="nav-highlight">
+           Please Select a Neighborhood for Top 10
+         </p>
+       </div>
+        <!--Result of neighborhood search -->
+        <div data-bind="with: listviewModel, visible: showMap">
+          <ul class="demo-list-item mdl-list" data-bind="foreach: listOfLocations">
+            <li class="mdl-list__item"><span class="mdl-list__item-primary-content" data-bind="text: name"></span></li>
           </ul>
         </div>
-        <div class="mdl-layout-spacer"></div>
-        <p>a spacer above </p>
       </nav>
     </div>
     <main class="mdl-layout__content mdl-color--grey-100">

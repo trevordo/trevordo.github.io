@@ -61,21 +61,23 @@
 		this.mapviewModel =  new myApp.myModels.mapviewModel(),
 		this.listviewModel = new myApp.myModels.listviewModel();
 
-        // visibility options
+        // set visibility options
         this.showMap = ko.observable(false);
         this.hideStart = ko.observable(true);
 
         this.toggleMapVisibility = function() {
-            //var l = this.inputcity().trim();
-            //if (l) {
+			// change visibility
             self.showMap(!self.showMap());
             self.hideStart(!self.hideStart());
+			// call method to get foursquare json
 			listviewModel.getLocations();
-            //}
         }.bind(this);
 
-		this.submitToGetList = function() {
-			// another method
+		this.queryList = function() {
+			// clear observableArray
+			listviewModel.listOfLocations.removeAll();
+			// get location with query param
+			listviewModel.getLocations();
 		}.bind(this);
 		
 	})();
