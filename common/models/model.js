@@ -21,10 +21,30 @@ myApp.myModels = {
 //
 var params;
 
+function geocodeAddress() {
+		var geocoder = new google.maps.Geocoder();
+		var resultsMap = new google.maps.Map(document.getElementById('map_canvas'), {
+          zoom: 12,
+          center: {lat: -34.397, lng: 150.644}
+        });
 
+		var address = self.inputcity();
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      };
+        
 
 function initialize(params) {
-        var myLatlng = new google.maps.Maps(52.872764, -6.496128);
+        var myLatlng = new google.maps.LatLng(52.872764, -6.496128);
         var mapOptions = {
             center: myLatlng,
             zoom: 8,
@@ -39,8 +59,9 @@ function initialize(params) {
     }
 	
     this.initializeMap = function () {
-        initialize(params);
+        //initialize(params);
 		console.log("Hi");
+		geocodeAddress();
     }
 //
 
@@ -56,10 +77,10 @@ function initialize(params) {
         //if (typeof google !== "undefined"){
         if (window.google && google.maps) {
             // Map script is already loaded
-            alert("Map script is already loaded. Initialising");
+            //alert("Map script is already loaded. Initialising");
             initializeMap();
         } else {
-            alert("Lazy loading Google map...");
+            //alert("Lazy loading Google map...");
             lazyLoadGoogleMap();            
         }     
    
