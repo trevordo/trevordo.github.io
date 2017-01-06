@@ -72,13 +72,13 @@
 			   var lng = item.lng
 			   var myLatlng = new google.maps.LatLng(lat, lng);
 
-			   var myMarker = {
+			   var myMarkerOptions = {
 				   position: myLatlng,
-				   map: mapviewModel.geocodeAddress().resultsMap(),
+				   map: mapviewModel.resultsMap,
 				   title: "There"
 			  }
-
-			  //console.log(myMarker);
+			var marker = new google.maps.Marker(myMarkerOptions);
+	
             })  
 		};
 
