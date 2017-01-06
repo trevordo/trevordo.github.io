@@ -64,13 +64,31 @@
         this.showMap = ko.observable(false);
         this.hideStart = ko.observable(true);
 
+		this.setMarkers = function() {
+
+			ko.utils.arrayForEach(listviewModel.listOfLocations(), function (item) {
+               
+			   var lat = item.lat
+			   var lng = item.lng
+			   var myLatlng = new google.maps.LatLng(lat, lng);
+
+			   var myMarker = {
+				   position: myLatlng,
+				   map: mapviewModel.geocodeAddress().resultsMap(),
+				   title: "There"
+			  }
+
+			  //console.log(myMarker);
+            })  
+		};
+
         this.toggleMapVisibility = function() {
 			// change visibility
             self.showMap(!self.showMap());
             self.hideStart(!self.hideStart());
 			// call method to get foursquare json
 			listviewModel.getLocations();
-			mapviewModel.fullUrl();
+			mapviewModel.geocodeAddress();
         }.bind(this);
 
 		this.queryList = function() {
@@ -84,7 +102,7 @@
 			// clear observableArray
 			listviewModel.listOfLocations.removeAll();
 			// Get new location
-			mapviewModel.initializeMap();
+			mapviewModel.geocodeAddress();
 			// get location with query param
 			listviewModel.getLocations();
 		}.bind(this);
