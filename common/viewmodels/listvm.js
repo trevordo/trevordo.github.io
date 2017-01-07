@@ -44,7 +44,7 @@ myList = {
 						lng: arrayitem.venue.location.lng,
 						category: arrayitem.venue.categories[0].name,
 						rating: arrayitem.venue.rating,
-						description: arrayitem.tips.text
+						address: arrayitem.venue.location.formattedAddress
 					};
 					// push the object literal to observableArray
 					self.listOfLocations.push(result);

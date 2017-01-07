@@ -30,6 +30,10 @@ myMaps = {
 
 		this.setMarkers = function () {
 
+			var infowindow = new google.maps.InfoWindow({
+				content: ""
+			});
+
 			ko.utils.arrayForEach(listviewModel.listOfLocations(), function (item) {
 
 				//var lat = item.lat
@@ -41,11 +45,23 @@ myMaps = {
 					map: mapviewModel.resultsMap,
 					title: "There"
 				}
+
+				var contentString = '<b>' + item.name + '</b>' +
+									'<br>' + 'Foursquare Rating: ' + item.rating +
+									'<br><br>' + item.address;
+
 				var marker = new google.maps.Marker(myMarkerOptions);
+
+				google.maps.event.addListener(marker, 'click', function () {
+					infowindow.setContent(contentString);
+					infowindow.open(mapviewModel.resultsMap, this);
+				});
 
 				mapviewModel.markerArray.push(marker);
 
 			})
+
+
 		};
 
 		// Sets the map on all markers in the array.

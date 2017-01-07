@@ -56,6 +56,7 @@
 
 	var MapViewModel = (function () {
 		var self = this;
+
 		// call MapModel method
 		this.mapviewModel = new myMaps.mapviewModel();
 		this.listviewModel = new myList.listviewModel();
@@ -65,16 +66,30 @@
 		this.hideStart = ko.observable(true);
 
 		this.toggleMapVisibility = function () {
+
 			// change visibility
 			self.showMap(!self.showMap());
 			self.hideStart(!self.hideStart());
+
+		};
+
+		this.loadMap = function () {
+
 			// call method to get foursquare json
 			listviewModel.getLocations();
 			mapviewModel.geocodeAddress();
 
+		};
+
+		this.startMap = function () {
+			// toggleMapVisibility
+			self.toggleMapVisibility();
+			// clear observableArray
+			self.loadMap();
 		}.bind(this);
 
 		this.queryList = function () {
+
 			// clear observableArray
 			listviewModel.listOfLocations.removeAll();
 			// get location with query param
