@@ -31,7 +31,7 @@
 		};
 	}
 
- 	// a custom binding to handle the enter key
+	// a custom binding to handle the enter key
 	ko.bindingHandlers.enterKey = keyhandlerBindingFactory(ENTER_KEY);
 
 	// another custom binding, this time to handle the escape key
@@ -54,62 +54,51 @@
 		}
 	};
 
-	var MapViewModel = (function(){
-	    var self = this;
-        // call MapModel method
-		this.mapviewModel =  new myMaps.mapviewModel(),
+	var MapViewModel = (function () {
+		var self = this;
+		// call MapModel method
+		this.mapviewModel = new myMaps.mapviewModel();
 		this.listviewModel = new myList.listviewModel();
 
-        // set visibility options
-        this.showMap = ko.observable(false);
-        this.hideStart = ko.observable(true);
+		// set visibility options
+		this.showMap = ko.observable(false);
+		this.hideStart = ko.observable(true);
 
-		this.setMarkers = function() {
-
-			ko.utils.arrayForEach(listviewModel.listOfLocations(), function (item) {
-               
-			   var lat = item.lat
-			   var lng = item.lng
-			   var myLatlng = new google.maps.LatLng(lat, lng);
-
-			   var myMarkerOptions = {
-				   position: myLatlng,
-				   map: mapviewModel.resultsMap,
-				   title: "There"
-			  }
-			var marker = new google.maps.Marker(myMarkerOptions);
-	
-            })  
-		};
-
-        this.toggleMapVisibility = function() {
+		this.toggleMapVisibility = function () {
 			// change visibility
-            self.showMap(!self.showMap());
-            self.hideStart(!self.hideStart());
+			self.showMap(!self.showMap());
+			self.hideStart(!self.hideStart());
 			// call method to get foursquare json
 			listviewModel.getLocations();
 			mapviewModel.geocodeAddress();
-        }.bind(this);
 
-		this.queryList = function() {
+		}.bind(this);
+
+		this.queryList = function () {
 			// clear observableArray
 			listviewModel.listOfLocations.removeAll();
 			// get location with query param
 			listviewModel.getLocations();
+			// Clear all markers first
+			mapviewModel.markerclearAll();
+			// place markers on map
+			mapviewModel.setMarkers();
 		}.bind(this);
-			
-		this.newCity = function() {
+
+		this.newCity = function () {
 			// clear observableArray
 			listviewModel.listOfLocations.removeAll();
 			// Get new location
 			mapviewModel.geocodeAddress();
 			// get location with query param
 			listviewModel.getLocations();
+			// place markers on map
+			mapviewModel.setMarkers();
 		}.bind(this);
-		
+
 	})();
 
 	ko.applyBindings(MapViewModel)
 
-}());
+} ());
 
