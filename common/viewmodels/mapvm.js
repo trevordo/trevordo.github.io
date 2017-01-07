@@ -29,6 +29,7 @@ myMaps = {
 		}, self.resultsMap;
 
 		this.setMarkers = function () {
+			self.markerclearAll();
 
 			var infowindow = new google.maps.InfoWindow({
 				content: ""
@@ -66,6 +67,8 @@ myMaps = {
 
 			})
 
+			self.markershowAll();
+
 
 		};
 
@@ -81,12 +84,11 @@ myMaps = {
 			for (var i = 0; i < self.markerArray.length; i++) {
 				var timeout = i * 200;
 				var marker = self.markerArray[i];
-				console.log(marker);
 				// self.markerArray[i].setMap(self.resultsMap);
 				self.markersetMap(marker, timeout);
 
 			}
-			self.markerArray = [];
+
 		};
 		// change the map
 		this.markersetMap = function (marker, timeout) {
