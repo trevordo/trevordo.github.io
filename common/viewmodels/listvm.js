@@ -43,6 +43,7 @@ myList = {
 
 					// create an object literal and fill with array properties
 					var result = {
+						id: i,
 						name: arrayitem.venue.name,
 						lat: arrayitem.venue.location.lat,
 						lng: arrayitem.venue.location.lng,

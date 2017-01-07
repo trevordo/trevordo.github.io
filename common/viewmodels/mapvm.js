@@ -35,22 +35,23 @@ myMaps = {
 				content: ""
 			});
 
+
 			ko.utils.arrayForEach(listviewModel.listOfLocations(), function (item) {
 
 				//var lat = item.lat
 				//var lng = item.lng
 				var myLatlng = new google.maps.LatLng(item.lat, item.lng);
+				var contentString = '<b>' + item.name + '</b>' +
+					'<br>' + 'Foursquare Rating: ' + item.rating +
+					'<br><br>' + item.address;
 
 				var myMarkerOptions = {
 					position: myLatlng,
 					map: null,
 					title: item.name,
 					animation: google.maps.Animation.DROP,
-				}
 
-				var contentString = '<b>' + item.name + '</b>' +
-					'<br>' + 'Foursquare Rating: ' + item.rating +
-					'<br><br>' + item.address;
+				}
 
 				var marker = new google.maps.Marker(myMarkerOptions);
 
@@ -65,7 +66,7 @@ myMaps = {
 
 				mapviewModel.markerArray.push(marker);
 
-			})
+			});
 
 			self.markershowAll();
 			console.log('setMarkers Loaded...')
@@ -97,6 +98,30 @@ myMaps = {
 			window.setTimeout(function () {
 				marker.setMap(self.resultsMap);
 			}, timeout);
+		};
+		this.gotoMarker = function (thisMarker) {
+			var infowindow = new google.maps.InfoWindow({
+				content: ""
+			});
+
+			console.log('selected marker');
+			console.log(thisMarker.id);
+
+			var i = thisMarker.id
+			var marker = self.markerArray[i]
+			console.log(marker);
+
+			//infowindow.setContent(marker.content);
+			//infowindow.open(mapviewModel.resultsMap, thisMarker);
+		}
+
+		this.bindInfoWindow = function () {
+			var infowindow = new google.maps.InfoWindow({
+				content: ""
+			});
+			
+
+
 		};
 
 	},

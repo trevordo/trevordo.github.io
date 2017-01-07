@@ -83,7 +83,10 @@
         <!--Result of neighborhood search -->
         <div data-bind="with: listviewModel, visible: showMap">
           <ul class="demo-list-item mdl-list" data-bind="foreach: listOfLocations">
-            <li class="mdl-list__item"><span class="mdl-list__item-primary-content" data-bind="text: name"></span></li>
+            <li class="mdl-list__item">
+              <span class="mdl-list__item-primary-content" data-bind="text: name, click: mapviewModel.gotoMarker">
+              </span>
+            </li>
           </ul>
         </div>
       </nav>
