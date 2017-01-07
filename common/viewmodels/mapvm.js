@@ -42,22 +42,23 @@ myMaps = {
 
 				var myMarkerOptions = {
 					position: myLatlng,
-					map: mapviewModel.resultsMap,
-					title: "There"
+					map: null,
+					title: item.name,
+					animation: google.maps.Animation.DROP,
 				}
 
 				var contentString = '<b>' + item.name + '</b>' +
-									'<br>' + 'Foursquare Rating: ' + item.rating +
-									'<br><br>' + item.address;
+					'<br>' + 'Foursquare Rating: ' + item.rating +
+					'<br><br>' + item.address;
 
 				var marker = new google.maps.Marker(myMarkerOptions);
 
 				google.maps.event.addListener(marker, 'click', function () {
 					infowindow.setContent(contentString);
 					marker.setAnimation(google.maps.Animation.BOUNCE);
-                    setTimeout(function() {
-                        marker.setAnimation(null);
-                    }, 2000);
+					setTimeout(function () {
+						marker.setAnimation(null);
+					}, 2000);
 					infowindow.open(mapviewModel.resultsMap, this);
 				});
 
@@ -74,6 +75,25 @@ myMaps = {
 				self.markerArray[i].setMap(null);
 			}
 			self.markerArray = [];
+		};
+
+		this.markershowAll = function () {
+			for (var i = 0; i < self.markerArray.length; i++) {
+				var timeout = i * 200;
+				var marker = self.markerArray[i];
+				console.log(marker);
+				// self.markerArray[i].setMap(self.resultsMap);
+				self.markersetMap(marker, timeout);
+
+			}
+			self.markerArray = [];
+		};
+		// change the map
+		this.markersetMap = function (marker, timeout) {
+
+			window.setTimeout(function () {
+				marker.setMap(self.resultsMap);
+			}, timeout);
 		};
 
 	},

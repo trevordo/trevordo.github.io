@@ -79,36 +79,36 @@
 			listviewModel.getLocations();
 			mapviewModel.geocodeAddress();
 
+			google.maps.event.addListenerOnce(mapviewModel.resultsMap, 'idle', function () {
+				// do something only the first time the map is loaded
+				// place markers on map
+				mapviewModel.setMarkers();
+			});
+
 		};
 
 		this.startMap = function () {
 			// toggleMapVisibility
 			self.toggleMapVisibility();
-			// clear observableArray
+			// load map and list
 			self.loadMap();
 		}.bind(this);
 
 		this.queryList = function () {
 
-			// clear observableArray
-			listviewModel.listOfLocations.removeAll();
 			// get location with query param
 			listviewModel.getLocations();
 			// Clear all markers first
 			mapviewModel.markerclearAll();
-			// place markers on map
-			mapviewModel.setMarkers();
+
 		}.bind(this);
 
 		this.newCity = function () {
 			// clear observableArray
 			listviewModel.listOfLocations.removeAll();
-			// Get new location
-			mapviewModel.geocodeAddress();
-			// get location with query param
-			listviewModel.getLocations();
-			// place markers on map
-			mapviewModel.setMarkers();
+			// load map and list
+			self.loadMap();
+
 		}.bind(this);
 
 	})();

@@ -28,9 +28,12 @@ myList = {
 		this.getLocations = function () {
 			$.getJSON(self.listUrl(), function (data) {
 
+				// clear observableArray
+				self.listOfLocations.removeAll();
+
 				// assign object from json Foursquare
 				var JSONdataFromServer = data.response.groups[0].items;
-				
+
 				// iterate through json
 				for (var i = 0; i < JSONdataFromServer.length; i++) {
 
