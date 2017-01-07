@@ -54,6 +54,10 @@ myMaps = {
 
 				google.maps.event.addListener(marker, 'click', function () {
 					infowindow.setContent(contentString);
+					marker.setAnimation(google.maps.Animation.BOUNCE);
+                    setTimeout(function() {
+                        marker.setAnimation(null);
+                    }, 2000);
 					infowindow.open(mapviewModel.resultsMap, this);
 				});
 
