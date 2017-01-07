@@ -68,6 +68,7 @@ myMaps = {
 			})
 
 			self.markershowAll();
+			console.log('setMarkers Loaded...')
 
 
 		};

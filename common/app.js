@@ -74,15 +74,31 @@
 		};
 
 		this.loadMap = function () {
+			// clear
+			
+			
 
 			// call method to get foursquare json
-			listviewModel.getLocations();
 			mapviewModel.geocodeAddress();
+			listviewModel.getLocations();
+			// mapviewModel.setMarkers();
 
-			google.maps.event.addListenerOnce(mapviewModel.resultsMap, 'idle', function () {
+			var tilesloadedcount = 0;
+
+			google.maps.event.addListenerOnce(mapviewModel.resultsMap, 'tilesloaded', function () {
 				// do something only the first time the map is loaded
 				// place markers on map
-				mapviewModel.setMarkers();
+				tilesloadedcount++
+
+				if (tilesloadedcount > 0) {
+					window.setTimeout(function () {
+						mapviewModel.setMarkers();
+					}, 500);
+
+					console.log('setMarkers Loaded...')
+				} else {
+					alert('Please Check your internet connection');
+				};
 			});
 
 		};
@@ -98,14 +114,18 @@
 
 			// get location with query param
 			listviewModel.getLocations();
-			// Clear all markers first
-			mapviewModel.markerclearAll();
+			// mapviewModel.setMarkers();
+			window.setTimeout(function () {
+				mapviewModel.setMarkers();
+			}, 500);
+			console.log('queryList Loaded...')
 
 		}.bind(this);
 
 		this.newCity = function () {
 			// clear observableArray
 			listviewModel.listOfLocations.removeAll();
+			
 			// load map and list
 			self.loadMap();
 

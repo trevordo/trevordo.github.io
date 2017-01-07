@@ -30,6 +30,7 @@ myList = {
 
 				// clear observableArray
 				self.listOfLocations.removeAll();
+				mapviewModel.markerclearAll();
 
 				// assign object from json Foursquare
 				var JSONdataFromServer = data.response.groups[0].items;
@@ -51,9 +52,14 @@ myList = {
 					};
 					// push the object literal to observableArray
 					self.listOfLocations.push(result);
-				};
-			});
 
+
+
+				};
+				
+			});
+			console.log('getLocations Loaded...');
+			listviewModel.q("");
 		};
 
 	},
