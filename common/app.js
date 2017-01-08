@@ -64,15 +64,19 @@
 		// set visibility options
 		this.showMap = ko.observable(false);
 		this.hideStart = ko.observable(true);
+		this.showError = ko.observable(false);
 
 		// visibility of DOM elements
 		this.toggleMapVisibility = function () {
 
 			// change visibility
+			// show map
 			self.showMap(!self.showMap());
+			// hide welcome input
 			self.hideStart(!self.hideStart());
 		};
 
+		// loads map
 		this.loadMap = function () {
 
 			// call method to get foursquare json
@@ -96,12 +100,21 @@
 					}, 500);
 				} else {
 					// if internet is not working throw alert
-					alert('Please Check your internet connection');
+					alert('Please Check your internet connection, map could not be loaded');
 				};
 			});
 		};
 
 		// event bindings
+		// error message
+		this.showerrorMsg = function () {
+
+			// show error
+			self.showError(!self.showError());
+			// hide map
+			self.showMap(!self.showMap());
+		}.bind(this);
+
 		// first input of Map
 		this.startMap = function () {
 

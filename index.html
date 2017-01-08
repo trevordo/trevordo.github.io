@@ -47,11 +47,12 @@
 </head>
 
 <body>
+  
   <!-- This is where the heading starts -->
   <div class="project-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="project-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
       <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title">FSND Neighborhood Project</span>
+        <span class="mdl-layout-title">FSND-YNM</span>
         <div class="mdl-layout-spacer"></div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable" data-bind="visible: showMap">
           <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
@@ -64,6 +65,8 @@
         </div>
       </div>
     </header>
+
+    <!-- The Drawer -->
     <div class="project-drawer mdl-layout__drawer mdl-color--blue-grey-800 mdl-color-text--black">
       <header class="project-drawer-header">
         <div class="mdl-layout" data-bind="with: listviewModel, visible: showMap">
@@ -74,44 +77,39 @@
         </div>
       </header>
       <nav class="project-navigation mdl-navigation mdl-color--blue-grey-600">
-       <!-- Start before neighborhood search -->
-       <div  data-bind="visible: hideStart">
-         <p class="nav-highlight">
-           Please Select a Neighborhood for Top 10
-         </p>
-       </div>
+        <!-- Start before neighborhood search -->
+        <div data-bind="visible: hideStart">
+          <p class="nav-highlight">
+            Please Select a Neighborhood for Top 10
+          </p>
+        </div>
         <!-- Result of neighborhood search -->
         <div data-bind="with: listviewModel, visible: showMap">
-<table class="project-table mdl-data-table mdl-js-data-table">
-  <tbody data-bind="foreach: listOfLocations">
-    <td class="mdl-data-table__cell--non-numeric" data-bind="click: gotoMarker">
-      <span class="mdl-list__item-primary-content" data-bind="text: name">
-
-      </td>
-  </tbody>
-</table>
+          <table class="project-table mdl-data-table mdl-js-data-table">
+            <tbody data-bind="foreach: listOfLocations">
+              <td class="mdl-data-table__cell--non-numeric" data-bind="click: gotoMarker">
+                <span class="mdl-list__item-primary-content" data-bind="text: name">
+              </td>
+            </tbody>
+          </table>
         </div>
       </nav>
     </div>
 
-
-
     <!-- Main content window DOM -->
     <main class="mdl-layout__content mdl-color--grey-100">
 
-      <!-- Contents of main: input and map -->
+      <!-- Welcome DOM input and map -->
       <div class="mdl-typography--text-center fullheight" data-bind="visible: hideStart">
         <div class="mdl-card mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col mdl-grid fullheight-card">
           <div class="mdl-card__media">
           </div>
           <div class="mdl-card__supporting-text">
             <h1>Welcome to your Neighborhood!</h1>
+            <h4>Explore restuarants, parks, museums around you</h4>
           </div>
-
-          <div class="mdl-card__supporting-text" data-bind="with: listviewModel">
-            <p data-bind="text: listUrl">This is!</p>
+          <div class="mdl-card__supporting-text">
           </div>
-
           <div class="mdl-card__supporting-text">
             <div class="mdl-textfield mdl-js-textfield" data-bind="with: mapviewModel">
               <input class="mdl-textfield__input welcome-input" type="text" id="new-location" data-bind="value: inputcity, enterKey: startMap">
@@ -124,28 +122,36 @@
       <!--MAP view -->
       <div  class="fullheight" data-bind="visible: showMap">
         <div class="fullheight-card mdl-card mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col mdl-grid main-card">
-          <div id="map_canvas" style="width:100%; height:100%;">Map here</div>
+          <div id="map_canvas" style="width:100%; height:100%;">
           </div>
-
-          <div class="mdl-card__supporting-text" data-bind="with: listviewModel">
-            <p data-bind="text: listUrl">This is!</p>
-          </div>
-          
         </div>
-      </div>
+          <div class="mdl-card__supporting-text">
+          </div>
+        </div>
 
-  </main>
+
+      <!--Error view -->
+      <div  class="fullheight" data-bind="visible: showError">
+        <div class="fullheight-card mdl-card mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col mdl-grid main-card">
+        </div>
+          <div class="mdl-card__supporting-text">
+            <span></Span>
+          </div>
+        </div>
+
+
+    </main>
   </div>
 
-  <script src="js/material.min.js"></script>
-  <script src="js/knockout/knockout-latest.js"></script>
-  <script src="js/knockout/knockout-postbox.js"></script>
-  <script src="js/knockout/knockout-mapping-latest.js"></script>
-  <script src="js/jquery/jquery.min.js"></script>
-  <script src="common/viewmodels/mapvm.js"></script>
-  <script src="common/viewmodels/listvm.js"></script>
-  <script src="common/app.js"></script>
-  <script async defer src="http://maps.google.com/maps/api/js?key=AIzaSyA7UXVPRZlqsTwxpp9d7HPQHakSNNGEK7s"></script>
+<script src="js/material.min.js"></script>
+<script src="js/knockout/knockout-latest.js"></script>
+<script src="js/knockout/knockout-postbox.js"></script>
+<script src="js/knockout/knockout-mapping-latest.js"></script>
+<script src="js/jquery/jquery.min.js"></script>
+<script src="common/viewmodels/mapvm.js"></script>
+<script src="common/viewmodels/listvm.js"></script>
+<script src="common/app.js"></script>
+<script async defer src="http://maps.google.com/maps/api/js?key=AIzaSyA7UXVPRZlqsTwxpp9d7HPQHakSNNGEK7s"></script>
 </body>
 
 </html>
