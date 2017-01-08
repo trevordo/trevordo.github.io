@@ -1,3 +1,8 @@
+/*
+2017-01-08
+my spa uses the Foursquare explore venue api
+*/
+
 var myList = myList || {};
 
 myList = {
@@ -30,7 +35,6 @@ myList = {
 
 				// clear observableArray
 				self.listOfLocations.removeAll();
-				mapviewModel.markerclearAll();
 
 				// assign object from json Foursquare
 				var JSONdataFromServer = data.response.groups[0].items;
@@ -53,8 +57,12 @@ myList = {
 					};
 					// push the object literal to observableArray
 					self.listOfLocations.push(result);
-				};		
+				};
+			}).fail(function (jqXHR, textStatus, errorThrown) {
+				alert("error " + textStatus);
+				console.log("incoming Text " + jqXHR.responseText);
 			});
+
 			// clear query observable if a query was performed
 			listviewModel.q("");
 		};

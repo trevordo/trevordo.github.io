@@ -1,6 +1,7 @@
 (function () {
 
 	// This is from the TODOmvc examples to get the enterkey working
+	// TODOmvc code starts here
 	var ENTER_KEY = 13;
 	var ESCAPE_KEY = 27;
 
@@ -53,6 +54,7 @@
 			}, 0);
 		}
 	};
+	// TODOmvc code ends here
 
 	var MapViewModel = (function () {
 		var self = this;
@@ -64,8 +66,7 @@
 		// set visibility options
 		this.showMap = ko.observable(false);
 		this.hideStart = ko.observable(true);
-		this.showError = ko.observable(false);
-
+		
 		// visibility of DOM elements
 		this.toggleMapVisibility = function () {
 
@@ -106,15 +107,6 @@
 		};
 
 		// event bindings
-		// error message
-		this.showerrorMsg = function () {
-
-			// show error
-			self.showError(!self.showError());
-			// hide map
-			self.showMap(!self.showMap());
-		}.bind(this);
-
 		// first input of Map
 		this.startMap = function () {
 
