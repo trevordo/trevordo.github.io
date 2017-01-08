@@ -40,9 +40,9 @@ myMaps = {
 		this.setMarkers = function () {
 
 			// clear the markers on the map
-			self.markerclearAll();
+			self.markerArray = [];
 
-			// clear the infowindo
+			// clear the infowindow
 			var infowindow = new google.maps.InfoWindow({
 				content: ""
 			});

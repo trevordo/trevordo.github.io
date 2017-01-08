@@ -56,6 +56,16 @@
 	};
 	// TODOmvc code ends here
 
+	// Load google map api script
+	$.getScript("https://maps.google.com/maps/api/js?key=AIzaSyA7UXVPRZlqsTwxpp9d7HPQHakSNNGEK7s")
+		.done(function (script, textStatus) {
+			console.log("Google map script loaded successfully");
+		})
+		.fail(function (jqxhr, settings, ex) {
+			alert("Could not load Google Map script: " + jqxhr);
+		});
+	// End google map api script		
+
 	var MapViewModel = (function () {
 		var self = this;
 
@@ -66,7 +76,7 @@
 		// set visibility options
 		this.showMap = ko.observable(false);
 		this.hideStart = ko.observable(true);
-		
+
 		// visibility of DOM elements
 		this.toggleMapVisibility = function () {
 
@@ -79,6 +89,9 @@
 
 		// loads map
 		this.loadMap = function () {
+						
+			// clear the markers on the map
+			mapviewModel.markerclearAll();
 
 			// call method to get foursquare json
 			mapviewModel.geocodeAddress();
@@ -119,6 +132,9 @@
 
 		// do a foursqaure query of specific categories
 		this.queryList = function () {
+			
+			// clear the markers on the map
+			mapviewModel.markerclearAll();
 
 			// get location with query param
 			listviewModel.getLocations();
