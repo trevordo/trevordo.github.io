@@ -53,13 +53,9 @@ myList = {
 					};
 					// push the object literal to observableArray
 					self.listOfLocations.push(result);
-
-
-
-				};
-				
+				};		
 			});
-			console.log('getLocations Loaded...');
+			// clear query observable if a query was performed
 			listviewModel.q("");
 		};
 

@@ -1,6 +1,6 @@
 (function () {
 
-	// This is from the TODOmvc examples
+	// This is from the TODOmvc examples to get the enterkey working
 	var ENTER_KEY = 13;
 	var ESCAPE_KEY = 27;
 
@@ -65,70 +65,84 @@
 		this.showMap = ko.observable(false);
 		this.hideStart = ko.observable(true);
 
+		// visibility of DOM elements
 		this.toggleMapVisibility = function () {
 
 			// change visibility
 			self.showMap(!self.showMap());
 			self.hideStart(!self.hideStart());
-
 		};
 
 		this.loadMap = function () {
-			// clear
-			
-			
 
 			// call method to get foursquare json
 			mapviewModel.geocodeAddress();
 			listviewModel.getLocations();
-			// mapviewModel.setMarkers();
 
+			// reset tiles count
 			var tilesloadedcount = 0;
 
 			google.maps.event.addListenerOnce(mapviewModel.resultsMap, 'tilesloaded', function () {
+
 				// do something only the first time the map is loaded
-				// place markers on map
+				// add to the tilecount for map tiles loading
 				tilesloadedcount++
 
 				if (tilesloadedcount > 0) {
 					window.setTimeout(function () {
+
+						// place markers on map
 						mapviewModel.setMarkers();
 					}, 500);
-
-					console.log('setMarkers Loaded...')
 				} else {
+					// if internet is not working throw alert
 					alert('Please Check your internet connection');
 				};
 			});
-
 		};
 
+		// event bindings
+		// first input of Map
 		this.startMap = function () {
+
 			// toggleMapVisibility
 			self.toggleMapVisibility();
+
 			// load map and list
 			self.loadMap();
 		}.bind(this);
 
+		// do a foursqaure query of specific categories
 		this.queryList = function () {
 
 			// get location with query param
 			listviewModel.getLocations();
-			// mapviewModel.setMarkers();
+
+			// load markers after 500 ms because of lazyloading;
 			window.setTimeout(function () {
 				mapviewModel.setMarkers();
 			}, 500);
-			console.log('queryList Loaded...')
-
 		}.bind(this);
 
+		// new search city
 		this.newCity = function () {
+
 			// clear observableArray
 			listviewModel.listOfLocations.removeAll();
-			
+
 			// load map and list
 			self.loadMap();
+		}.bind(this);
 
+		// click item on the list
+		this.gotoMarker = function (thisMarker) {
+
+			// get the id of the location and get the corresponding marker from the array
+			var i = thisMarker.id
+			var marker = mapviewModel.markerArray[i]
+
+			// open the infowindow
+			google.maps.event.trigger(marker, 'click');
 		}.bind(this);
 
 	})();
