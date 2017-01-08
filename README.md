@@ -4,7 +4,7 @@ FSND project
 
 This is SPA project for the Udacity Neighborhood Map
 
-live version can be found [here](https://https://trevordo.github.io/)
+live version can be found [here](https://trevordo.github.io/)
 
 Features:
 - location search
