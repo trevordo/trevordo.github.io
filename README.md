@@ -22,6 +22,7 @@ Online Services used:
 # Usage
 
 Try out the live version or clone the repo and run index.html
+PLEASE deactivate adblockers.  Google maps API may likely be blocked.
 
 ```sh
 
@@ -32,5 +33,12 @@ Try out the live version or clone the repo and run index.html
 5. select the marker from the list or directly on the map for infomation
 6. query places for a category of places
 7. Search for a new location with search input
+
+```
+# Version
+
+```sh
+
+2017-01-08 - project submission
 
 ```
