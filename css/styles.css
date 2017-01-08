@@ -210,3 +210,15 @@ li {
   background-color: rgba(0, 0, 0, 0);
   border: 0px;
 }
+
+@media all and (max-width: 411px) {
+  h1 {
+    font-size: 350%;
+  }
+}
+
+@media all and (max-width: 321px) {
+  h1 {
+    font-size: 300%;
+  }
+}
