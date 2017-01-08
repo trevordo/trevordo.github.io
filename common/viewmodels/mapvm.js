@@ -38,7 +38,7 @@ myMaps = {
 
 		// push each marker from the Foursquare observablearray to the marker array
 		this.setMarkers = function () {
-			
+
 			// clear the markers on the map
 			self.markerclearAll();
 
@@ -56,7 +56,7 @@ myMaps = {
 				var contentString = '<b>' + item.name + '</b>' +
 					'<br>' + 'Foursquare Rating: ' + item.rating +
 					'<br><br>' + item.address;
-				
+
 				// populate the markerOptions for the marker
 				var myMarkerOptions = {
 					position: myLatlng,

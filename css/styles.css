@@ -193,10 +193,20 @@ html, body {
   padding: 10%;
 }
 
+.project-list-three {
+  width: 650px;
+}
+
 ul {
     list-style-type: none;
 }
 
 li {
   padding: 5px;
+}
+
+.project-table {
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0px;
 }
