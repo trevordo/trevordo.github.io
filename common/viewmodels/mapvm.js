@@ -46,9 +46,11 @@ myMaps = {
 			var infowindow = new google.maps.InfoWindow({
 				content: ""
 			});
+			// assign arry to arry variable
+			var array = listviewModel.listOfLocations();
 
 			// for each item in the forsquare array
-			ko.utils.arrayForEach(listviewModel.listOfLocations(), function (item) {
+			ko.utils.arrayForEach(array, function (item) {
 
 				// set the position for the marker with each of the item lat and lng
 				// prepare the content for the infowindow

@@ -142,7 +142,7 @@
 			// load markers after 500 ms because of lazyloading;
 			window.setTimeout(function () {
 				mapviewModel.setMarkers();
-			}, 500);
+			}, 1000);
 		}.bind(this);
 
 		// new search city
