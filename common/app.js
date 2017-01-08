@@ -93,30 +93,9 @@
 			// clear the markers on the map
 			mapviewModel.markerclearAll();
 
-			// call method to get foursquare json
+			// call method to get map and foursquare json
 			mapviewModel.geocodeAddress();
 			listviewModel.getLocations();
-
-			// reset tiles count
-			var tilesloadedcount = 0;
-
-			google.maps.event.addListenerOnce(mapviewModel.resultsMap, 'tilesloaded', function () {
-
-				// do something only the first time the map is loaded
-				// add to the tilecount for map tiles loading
-				tilesloadedcount++
-
-				if (tilesloadedcount > 0) {
-					window.setTimeout(function () {
-
-						// place markers on map
-						mapviewModel.setMarkers();
-					}, 500);
-				} else {
-					// if internet is not working throw alert
-					alert('Please Check your internet connection, map could not be loaded');
-				};
-			});
 		};
 
 		// event bindings
@@ -139,10 +118,6 @@
 			// get location with query param
 			listviewModel.getLocations();
 
-			// load markers after 500 ms because of lazyloading;
-			window.setTimeout(function () {
-				mapviewModel.setMarkers();
-			}, 1000);
 		}.bind(this);
 
 		// new search city
@@ -160,7 +135,7 @@
 
 			// get the id of the location and get the corresponding marker from the array
 			var i = thisMarker.id
-			var marker = mapviewModel.markerArray[i]
+			var marker = mapviewModel.markerArray()[i]
 
 			// open the infowindow
 			google.maps.event.trigger(marker, 'click');

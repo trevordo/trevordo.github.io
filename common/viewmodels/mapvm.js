@@ -8,17 +8,29 @@ myMaps = {
 		// set observable and arrays.  subscribe and publish for decoupled variable sync
 		this.inputcity = ko.observable().publishOn("inputLocation");
 		this.resultsMap = ko.observable();
-		this.markerArray = [];
+		this.markerArray = ko.observableArray();
 
 		// get the geocode of the input city
 		this.geocodeAddress = function () {
-			this.geocoder = new google.maps.Geocoder();
-			this.resultsMap = new google.maps.Map(document.getElementById('map_canvas'), {
+
+			if (window.google === undefined) {
+				// Map script is not loaded
+				alert("Please check your connection google maps could not be loaded...");
+			};
+
+
+			self.geocoder = new google.maps.Geocoder();
+			self.resultsMap = new google.maps.Map(document.getElementById('map_canvas'), {
 				zoom: 12,
 			});
 
 			// retrieve city from input
 			var address = self.inputcity();
+
+			// check the input for entry
+			if (address === undefined) {
+				alert('Please enter a city')
+			};
 
 			// get geocode
 			self.geocoder.geocode({ 'address': address }, function (results, status) {
@@ -34,13 +46,13 @@ myMaps = {
 					alert('Please check your internet connection, Geocode was not successful for the following reason: ' + status);
 				}
 			});
-		}, self.resultsMap;
+		};
 
 		// push each marker from the Foursquare observablearray to the marker array
 		this.setMarkers = function () {
 
 			// clear the markers on the map
-			self.markerArray = [];
+			self.markerArray.removeAll();
 
 			// clear the infowindow
 			var infowindow = new google.maps.InfoWindow({
@@ -97,24 +109,24 @@ myMaps = {
 
 		// Clears the map on all markers in the array.
 		this.markerclearAll = function () {
-			for (var i = 0; i < self.markerArray.length; i++) {
+			for (var i = 0; i < self.markerArray().length; i++) {
 				// set the map for the marker to null
-				self.markerArray[i].setMap(null);
+				self.markerArray()[i].setMap(null);
 			}
 
 			// and erase everything in the markerArray
-			self.markerArray = [];
+			self.markerArray.removeAll();
 		};
 
 		// show all the markers by dropping them on the map
 		this.markershowAll = function () {
 
 			// go through each of the markers and 
-			for (var i = 0; i < self.markerArray.length; i++) {
+			for (var i = 0; i < self.markerArray().length; i++) {
 
 				// set the timeout and go thorugh each marker
 				var timeout = i * 200;
-				var marker = self.markerArray[i];
+				var marker = self.markerArray()[i];
 
 				// call the marker timer setup
 				self.markersetMap(marker, timeout);

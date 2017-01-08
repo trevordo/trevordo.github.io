@@ -59,14 +59,15 @@ myList = {
 					self.listOfLocations.push(result);
 				};
 			}).fail(function (jqXHR, textStatus, errorThrown) {
-				alert("error " + textStatus);
+				alert("error loading Foursquare search: " + textStatus);
 				console.log("incoming Text " + jqXHR.responseText);
+			}).always(function () {
+				// once foursqure is done run setMarkers to create markers from JSON request
+				mapviewModel.setMarkers();
 			});
 
 			// clear query observable if a query was performed
 			listviewModel.q("");
 		};
-
 	},
-
 }
