@@ -34,10 +34,6 @@ myList = {
 		this.getLocations = function () {
 			$.getJSON(self.listUrl(), function (data) {
 
-				// clear observableArray
-				//self.locationArray.removeAll();
-				self.locationArray = [];
-
 				// assign object from json Foursquare
 				var JSONdataFromServer = data.response.groups[0].items;
 

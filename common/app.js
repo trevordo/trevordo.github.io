@@ -81,6 +81,7 @@
 		this.newCity = function () {
 
 			// clear observableArray
+			listviewModel.locationArray = [];
 			listviewModel.listOfLocations.removeAll();
 
 			// load map and list
