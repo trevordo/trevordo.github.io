@@ -49,9 +49,10 @@ myList = {
 						name: arrayitem.venue.name,
 						lat: arrayitem.venue.location.lat,
 						lng: arrayitem.venue.location.lng,
-						category: arrayitem.venue.categories[0].name,
-						rating: arrayitem.venue.rating,
-						address: arrayitem.venue.location.formattedAddress
+						address: arrayitem.venue.location.formattedAddress,
+						//get rating and check to see if data is available
+						rating: !!arrayitem.venue.rating ?
+							rating = arrayitem.venue.rating : 'No rating available'
 					};
 					// push the object literal to observableArray
 					self.locationArray.push(result);
@@ -60,7 +61,7 @@ myList = {
 				alert("error loading Foursquare search: " + textStatus);
 				console.log("incoming Text " + jqXHR.responseText);
 			}).always(function () {
-				
+
 				// sync arrays
 				self.syncArrays();
 
@@ -74,7 +75,7 @@ myList = {
 			var array = self.locationArray;
 
 			// push all values from locationArray into listOfLocations
-			for (var i = 0; i<array.length; i++){
+			for (var i = 0; i < array.length; i++) {
 				self.listOfLocations.push(array[i]);
 			}
 		};
@@ -95,7 +96,7 @@ myList = {
 
 				// match query to index of array item
 				if (array[x].name.toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
-					
+
 					// push array item if it's a match to listOfLocations
 					self.listOfLocations.push(array[x]);
 				}
