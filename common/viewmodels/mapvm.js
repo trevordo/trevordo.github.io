@@ -6,7 +6,7 @@ myMaps = {
 		var self = this;
 
 		// set observable and arrays.  subscribe and publish for decoupled variable sync
-		this.inputcity = ko.observable().publishOn("inputLocation");
+		this.inputcity = ko.observable('Boston').publishOn("inputLocation");
 		this.resultsMap = ko.observable();
 		this.markerArray = ko.observableArray();
 
@@ -16,7 +16,7 @@ myMaps = {
 			if (window.google === undefined) {
 				// Map script is not loaded
 				alert("Please check your connection google maps could not be loaded...");
-			};
+			}
 
 
 			self.geocoder = new google.maps.Geocoder();
@@ -29,8 +29,11 @@ myMaps = {
 
 			// check the input for entry
 			if (address === undefined) {
-				alert('Please enter a city')
-			};
+				alert('Please enter a city');
+			}
+
+			// get a list of locations
+			listviewModel.getLocations();
 
 			// get geocode
 			self.geocoder.geocode({ 'address': address }, function (results, status) {
@@ -49,7 +52,7 @@ myMaps = {
 		};
 
 		// push each marker from the Foursquare observablearray to the marker array
-		this.setMarkers = function () {
+		this.setMarkers = function (array) {
 
 			// clear the markers on the map
 			self.markerArray.removeAll();
@@ -59,7 +62,7 @@ myMaps = {
 				content: ""
 			});
 			// assign arry to arry variable
-			var array = listviewModel.listOfLocations();
+			//var array = listviewModel.listOfLocations();
 
 			// for each item in the forsquare array
 			ko.utils.arrayForEach(array, function (item) {
@@ -78,7 +81,7 @@ myMaps = {
 					title: item.name,
 					animation: google.maps.Animation.DROP,
 
-				}
+				};
 
 				// set the markerOptions to the map
 				var marker = new google.maps.Marker(myMarkerOptions);
@@ -93,7 +96,7 @@ myMaps = {
 					marker.setAnimation(google.maps.Animation.BOUNCE);
 					setTimeout(function () {
 						marker.setAnimation(null);
-					}, 2000);
+					}, 1400);
 
 					// open the infowindow on click
 					infowindow.open(mapviewModel.resultsMap, this);
@@ -105,6 +108,7 @@ myMaps = {
 
 			// show the markers
 			self.markershowAll();
+
 		};
 
 		// Clears the map on all markers in the array.
@@ -144,4 +148,4 @@ myMaps = {
 			}, timeout);
 		};
 	},
-}
+};

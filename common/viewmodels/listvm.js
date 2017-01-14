@@ -12,9 +12,9 @@ myList = {
 
 		// Foursquare API params
 		this.foursqURL = "https://api.foursquare.com/v2/venues/explore?near=";
-		this.c = ko.observable().subscribeTo("inputLocation");
-		this.listparams = "&limit=10&query=";
-		this.q = ko.observable("");
+		this.c = ko.observable('Boston').subscribeTo("inputLocation");
+		this.listparams = "&limit=15";
+		this.q = ko.observable('');
 		this.clientID = "&client_id=QXZHPKM1KXHHQY02ZIBPMGYQ2QV1O5NUWBTDJWGESSS1GYF5";
 		this.clientSE = "&client_secret=KSWZYUKZOHKYPINL4DSP1FRGOB44WOSWWE0RSCKT55OO40SO";
 		this.v = "&v=20161228";
@@ -23,18 +23,33 @@ myList = {
 		this.listUrl = ko.pureComputed(function () {
 			// Knockout tracks dependencies automatically.
 			// Returns the Foursquare URL for JSON API Venue Explore
-			return self.foursqURL + self.c() + self.listparams + self.q() + self.clientID + self.clientSE + self.v;
+			return self.foursqURL + self.c() + self.listparams + self.clientID + self.clientSE + self.v;
 		}, self);
 
 		// observableArray
-		this.listOfLocations = ko.observableArray();
+		this.listOfLocations = ko.observableArray().subscribeTo("filteredList");
+		this.locationFilter = ko.observableArray(self.locationArray);
+		this.locationArray = [];
+
+
+		this.justCategories = ko.computed(function () {
+			var categories = ko.utils.arrayMap(self.locationArray, function (item) {
+				return item.category;
+			});
+			return categories.sort();
+		}, self);
+
+		this.uniqueCategories = ko.dependentObservable(function () {
+			return ko.utils.arrayGetDistinctValues(self.justCategories()).sort();
+		}, self);
 
 		//  Get locations from Foursquare API as json 
 		this.getLocations = function () {
 			$.getJSON(self.listUrl(), function (data) {
 
 				// clear observableArray
-				self.listOfLocations.removeAll();
+				//self.locationArray.removeAll();
+				self.locationArray = [];
 
 				// assign object from json Foursquare
 				var JSONdataFromServer = data.response.groups[0].items;
@@ -56,18 +71,42 @@ myList = {
 						address: arrayitem.venue.location.formattedAddress
 					};
 					// push the object literal to observableArray
-					self.listOfLocations.push(result);
-				};
+					self.locationArray.push(result);
+				}
 			}).fail(function (jqXHR, textStatus, errorThrown) {
 				alert("error loading Foursquare search: " + textStatus);
 				console.log("incoming Text " + jqXHR.responseText);
 			}).always(function () {
 				// once foursqure is done run setMarkers to create markers from JSON request
-				mapviewModel.setMarkers();
+				mapviewModel.setMarkers(self.listOfLocations());
 			});
 
 			// clear query observable if a query was performed
-			listviewModel.q("");
+
 		};
-	},
-}
+
+
+
+		this.filteredLocations = function () {
+			
+			// self.listOfLocations.removeAll();
+			var filter = self.q().toLowerCase();
+			console.log(filter);
+			var array = self.locationArray;
+			console.log(array);
+
+			for(var x in array) {
+				console.log(array[x].name);
+				console.log(array[x].name.toLowerCase());
+				console.log(filter.toLowerCase());
+				console.log(array[x].name.toLowerCase().indexOf(filter.toLowerCase()));
+				if (array[x].name.toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
+					self.listOfLocations.push(array[x]);
+				}
+			}
+
+		};
+
+
+	}
+};

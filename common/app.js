@@ -54,19 +54,9 @@
 			}, 0);
 		}
 	};
-	// TODOmvc code ends here
+	// TODOmvc code ends here	
 
-	// Load google map api script
-	$.getScript("https://maps.google.com/maps/api/js?key=AIzaSyA7UXVPRZlqsTwxpp9d7HPQHakSNNGEK7s")
-		.done(function (script, textStatus) {
-			console.log("Google map script loaded successfully");
-		})
-		.fail(function (jqxhr, settings, ex) {
-			alert("Could not load Google Map script: " + jqxhr);
-		});
-	// End google map api script		
-
-	var MapViewModel = (function () {
+	var MainViewModel = (function () {
 		var self = this;
 
 		// call MapModel method
@@ -95,7 +85,7 @@
 
 			// call method to get map and foursquare json
 			mapviewModel.geocodeAddress();
-			listviewModel.getLocations();
+
 		};
 
 		// event bindings
@@ -134,16 +124,16 @@
 		this.gotoMarker = function (thisMarker) {
 
 			// get the id of the location and get the corresponding marker from the array
-			var i = thisMarker.id
-			var marker = mapviewModel.markerArray()[i]
+			var i = thisMarker.id;
+			var marker = mapviewModel.markerArray()[i];
 
 			// open the infowindow
 			google.maps.event.trigger(marker, 'click');
 		}.bind(this);
 
 	})();
-
-	ko.applyBindings(MapViewModel)
+	
+	ko.applyBindings(MainViewModel);
 
 } ());
 
