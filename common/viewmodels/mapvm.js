@@ -61,8 +61,6 @@ myMaps = {
 			var infowindow = new google.maps.InfoWindow({
 				content: ""
 			});
-			// assign arry to arry variable
-			//var array = listviewModel.listOfLocations();
 
 			// for each item in the forsquare array
 			ko.utils.arrayForEach(array, function (item) {
@@ -81,7 +79,6 @@ myMaps = {
 					title: item.name,
 					animation: google.maps.Animation.DROP,
 					id: item.id,
-
 				};
 
 				// set the markerOptions to the map
@@ -122,9 +119,6 @@ myMaps = {
 				self.markerArray[i].setMap(null);
 			}
 
-			// and erase everything in the markerArray
-			self.markerArray = [];
-
 		};
 
 		// show all the markers by dropping them on the map
@@ -142,6 +136,7 @@ myMaps = {
 			}
 		};
 
+
 		// set the marker to the maps with a timer
 		this.markersetMap = function (marker, timeout) {
 
@@ -151,6 +146,10 @@ myMaps = {
 				// set the map to the loaded map
 				marker.setMap(self.resultsMap);
 			}, timeout);
+		};
+
+		this.showInfo = function (placeItem) {
+			// we want this function to take care of opening info windows
 		};
 	},
 };

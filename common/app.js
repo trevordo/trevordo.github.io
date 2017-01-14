@@ -55,6 +55,16 @@
 		}
 	};
 	// TODOmvc code ends here	
+	//if (typeof google !== "undefined"){
+	if (window.google && google.maps) {
+		// Map script is already loaded
+		console.log("Map script is already loaded. Initialising");
+
+	} else {
+		console.log("loading Google map...");
+
+	}
+	
 
 	var MainViewModel = (function () {
 		var self = this;
@@ -68,6 +78,7 @@
 
 			// clear the markers on the map
 			mapviewModel.markerclearAll();
+			mapviewModel.locationArray = [];
 
 			// clear query field
 			listviewModel.q('');

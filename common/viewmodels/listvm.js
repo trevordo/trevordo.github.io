@@ -99,11 +99,12 @@ myList = {
 
 					// push array item if it's a match to listOfLocations
 					self.listOfLocations.push(array[x]);
+					mapviewModel.markerArray[x].setMap(mapviewModel.resultsMap);
 				}
 			}
 
 			// Set markers on the map
-			mapviewModel.setMarkers(self.listOfLocations());
+			//mapviewModel.setMarkers(self.listOfLocations());
 		});
 	}
 };
