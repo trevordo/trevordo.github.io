@@ -101,6 +101,9 @@ myMaps = {
 
 					// open the infowindow on click
 					infowindow.open(mapviewModel.resultsMap, this);
+
+					// pan to marker center
+					self.resultsMap.panTo(marker.getPosition());
 				});
 
 				// push the marker to the marker array

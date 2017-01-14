@@ -102,6 +102,7 @@
 
 					// open the infowindow
 					google.maps.event.trigger(marker, 'click');
+
 				}
 			});
 		}.bind(this);
