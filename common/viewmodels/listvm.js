@@ -78,8 +78,8 @@ myList = {
 			var array = self.locationArray;
 
 			// push all values from locationArray into listOfLocations
-			for (var x in array){
-				self.listOfLocations.push(array[x]);
+			for (var i = 0; i<array.length; i++){
+				self.listOfLocations.push(array[i]);
 			}
 		};
 

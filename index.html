@@ -74,11 +74,11 @@
           data-bind="value: q, valueUpdate: 'afterkeydown'" autocomplete="off">
         </div>
         <div>
-          <span>Top 10 Spots</span>
+          <span>Top 15 Spots</span>
         </div>
       </header>
       <nav class="project-navigation mdl-navigation mdl-color--blue-grey-600">
-        <!-- Result of neighborhood search -->
+        <!-- Result of neighborhood search the list is populated -->
         <div data-bind="with: listviewModel">
           <table class="project-table mdl-data-table mdl-js-data-table">
             <tbody data-bind="foreach: listOfLocations">
@@ -98,7 +98,6 @@
 
     <!-- Main content window DOM -->
     <main class="mdl-layout__content mdl-color--grey-100">
-
       <!--MAP view -->
       <div  class="fullheight">
         <div class="fullheight-card mdl-card mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col mdl-grid main-card">
@@ -108,7 +107,6 @@
           <div class="mdl-card__supporting-text">
           </div>
         </div>
-
     </main>
   </div>
 

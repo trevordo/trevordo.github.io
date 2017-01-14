@@ -69,6 +69,9 @@
 			// clear the markers on the map
 			mapviewModel.markerclearAll();
 
+			// clear query field
+			listviewModel.q('');
+
 			// call method to get map and foursquare json
 			mapviewModel.geocodeAddress();
 
@@ -95,7 +98,7 @@
 
 				// if there is a match click and bounce the marker
 				if (i === marker.id) {
-					
+
 					// open the infowindow
 					google.maps.event.trigger(marker, 'click');
 				}
