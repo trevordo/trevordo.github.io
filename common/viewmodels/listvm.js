@@ -27,21 +27,8 @@ myList = {
 		}, self);
 
 		// observableArray
-		this.listOfLocations = ko.observableArray().subscribeTo("filteredList");
-		this.locationFilter = ko.observableArray(self.locationArray);
+		this.listOfLocations = ko.observableArray();
 		this.locationArray = [];
-
-
-		this.justCategories = ko.computed(function () {
-			var categories = ko.utils.arrayMap(self.locationArray, function (item) {
-				return item.category;
-			});
-			return categories.sort();
-		}, self);
-
-		this.uniqueCategories = ko.dependentObservable(function () {
-			return ko.utils.arrayGetDistinctValues(self.justCategories()).sort();
-		}, self);
 
 		//  Get locations from Foursquare API as json 
 		this.getLocations = function () {
@@ -77,36 +64,49 @@ myList = {
 				alert("error loading Foursquare search: " + textStatus);
 				console.log("incoming Text " + jqXHR.responseText);
 			}).always(function () {
+				
+				// sync arrays
+				self.syncArrays();
+
 				// once foursqure is done run setMarkers to create markers from JSON request
 				mapviewModel.setMarkers(self.listOfLocations());
 			});
-
-			// clear query observable if a query was performed
-
 		};
 
-
-
-		this.filteredLocations = function () {
-			
-			// self.listOfLocations.removeAll();
-			var filter = self.q().toLowerCase();
-			console.log(filter);
+		// syncronize arrays; Foursquare Data to listOfLocations
+		this.syncArrays = function () {
 			var array = self.locationArray;
-			console.log(array);
 
-			for(var x in array) {
-				console.log(array[x].name);
-				console.log(array[x].name.toLowerCase());
-				console.log(filter.toLowerCase());
-				console.log(array[x].name.toLowerCase().indexOf(filter.toLowerCase()));
+			// push all values from locationArray into listOfLocations
+			for (var x in array){
+				self.listOfLocations.push(array[x]);
+			}
+		};
+
+		// subscribe to q for query and look for changes, if change pass filter
+		self.q.subscribe(function (filter) {
+
+			// clear query observable if a query was performed and remove markers
+			mapviewModel.markerclearAll();
+			self.listOfLocations.removeAll();
+
+			// assign array with locationArray from Foursquare JSON request
+			var array = self.locationArray;
+
+			// loop through each array index and find the query that matches the index of item.
+			// if a match push to listOfLocations 
+			for (var x in array) {
+
+				// match query to index of array item
 				if (array[x].name.toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
+					
+					// push array item if it's a match to listOfLocations
 					self.listOfLocations.push(array[x]);
 				}
 			}
 
-		};
-
-
+			// Set markers on the map
+			mapviewModel.setMarkers(self.listOfLocations());
+		});
 	}
 };

@@ -63,23 +63,9 @@
 		this.mapviewModel = new myMaps.mapviewModel();
 		this.listviewModel = new myList.listviewModel();
 
-		// set visibility options
-		this.showMap = ko.observable(false);
-		this.hideStart = ko.observable(true);
-
-		// visibility of DOM elements
-		this.toggleMapVisibility = function () {
-
-			// change visibility
-			// show map
-			self.showMap(!self.showMap());
-			// hide welcome input
-			self.hideStart(!self.hideStart());
-		};
-
 		// loads map
 		this.loadMap = function () {
-						
+
 			// clear the markers on the map
 			mapviewModel.markerclearAll();
 
@@ -87,28 +73,6 @@
 			mapviewModel.geocodeAddress();
 
 		};
-
-		// event bindings
-		// first input of Map
-		this.startMap = function () {
-
-			// toggleMapVisibility
-			self.toggleMapVisibility();
-
-			// load map and list
-			self.loadMap();
-		}.bind(this);
-
-		// do a foursqaure query of specific categories
-		this.queryList = function () {
-			
-			// clear the markers on the map
-			mapviewModel.markerclearAll();
-
-			// get location with query param
-			listviewModel.getLocations();
-
-		}.bind(this);
 
 		// new search city
 		this.newCity = function () {
@@ -125,14 +89,21 @@
 
 			// get the id of the location and get the corresponding marker from the array
 			var i = thisMarker.id;
-			var marker = mapviewModel.markerArray()[i];
 
-			// open the infowindow
-			google.maps.event.trigger(marker, 'click');
+			// check marker id in list to marker in map overlay
+			ko.utils.arrayForEach(mapviewModel.markerArray, function (marker) {
+
+				// if there is a match click and bounce the marker
+				if (i === marker.id) {
+					
+					// open the infowindow
+					google.maps.event.trigger(marker, 'click');
+				}
+			});
 		}.bind(this);
 
 	})();
-	
+
 	ko.applyBindings(MainViewModel);
 
 } ());

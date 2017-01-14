@@ -8,7 +8,7 @@ myMaps = {
 		// set observable and arrays.  subscribe and publish for decoupled variable sync
 		this.inputcity = ko.observable('Boston').publishOn("inputLocation");
 		this.resultsMap = ko.observable();
-		this.markerArray = ko.observableArray();
+		this.markerArray = [];
 
 		// get the geocode of the input city
 		this.geocodeAddress = function () {
@@ -55,7 +55,7 @@ myMaps = {
 		this.setMarkers = function (array) {
 
 			// clear the markers on the map
-			self.markerArray.removeAll();
+			self.markerArray = [];
 
 			// clear the infowindow
 			var infowindow = new google.maps.InfoWindow({
@@ -80,6 +80,7 @@ myMaps = {
 					map: null,
 					title: item.name,
 					animation: google.maps.Animation.DROP,
+					id: item.id,
 
 				};
 
@@ -113,24 +114,25 @@ myMaps = {
 
 		// Clears the map on all markers in the array.
 		this.markerclearAll = function () {
-			for (var i = 0; i < self.markerArray().length; i++) {
+			for (var i = 0; i < self.markerArray.length; i++) {
 				// set the map for the marker to null
-				self.markerArray()[i].setMap(null);
+				self.markerArray[i].setMap(null);
 			}
 
 			// and erase everything in the markerArray
-			self.markerArray.removeAll();
+			self.markerArray = [];
+
 		};
 
 		// show all the markers by dropping them on the map
 		this.markershowAll = function () {
 
 			// go through each of the markers and 
-			for (var i = 0; i < self.markerArray().length; i++) {
+			for (var i = 0; i < self.markerArray.length; i++) {
 
 				// set the timeout and go thorugh each marker
-				var timeout = i * 200;
-				var marker = self.markerArray()[i];
+				var timeout = i * 100;
+				var marker = self.markerArray[i];
 
 				// call the marker timer setup
 				self.markersetMap(marker, timeout);
