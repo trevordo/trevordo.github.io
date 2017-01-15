@@ -71,8 +71,7 @@
 			mapviewModel.markerArray.removeAll();
 			listviewModel.locationArray = [];
 			listviewModel.listOfLocations.removeAll();
-
-
+			
 			// clear query field
 			listviewModel.q('');
 
