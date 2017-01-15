@@ -15,11 +15,6 @@ myMaps = {
 		// get the geocode of the input city
 		this.geocodeAddress = function () {
 
-			if (!window.google && !google.maps) {
-				// Map script is not loaded
-				alert("Please check your connection google maps could not be loaded...");
-			}
-
 			self.geocoder = new google.maps.Geocoder();
 			self.resultsMap = new google.maps.Map(document.getElementById('map_canvas'), {
 				zoom: 12,

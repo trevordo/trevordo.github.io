@@ -59,7 +59,7 @@
               <i class="material-icons">search</i>
             </label>
           <div class="mdl-textfield__expandable-holder" data-bind="with: mapviewModel">
-            <input class="mdl-textfield__input" type="text" id="search" data-bind="value: inputcity, enterKey: loadMap">
+            <input class="mdl-textfield__input" type="text" id="search" data-bind="textInput: inputcity, enterKey: loadMap">
             <label class="mdl-textfield__label" for="search">Enter your city...</label>
           </div>
         </div>
@@ -83,7 +83,7 @@
           <table class="project-table mdl-data-table mdl-js-data-table">
             <tbody data-bind="foreach: listOfLocations">
               <td class="mdl-data-table__cell--non-numeric" data-bind="click: mapviewModel.showInfo">
-                <span class="mdl-list__item-primary-content" data-bind="text: title">
+                <span class="mdl-list__item-primary-content" data-bind="text: title"></span>
               </td>
             </tbody>
           </table>
@@ -118,8 +118,15 @@
 <script src="common/viewmodels/mapvm.js"></script>
 <script src="common/viewmodels/listvm.js"></script>
 <script src="common/app.js"></script>
-<script async src="https://maps.google.com/maps/api/js?key=AIzaSyA7UXVPRZlqsTwxpp9d7HPQHakSNNGEK7s&callback=mapviewModel.geocodeAddress"></script>
-
+<script>
+function googleError() {
+    // Map script is not loaded
+    alert("Please check your connection google maps could not be loaded...");
+}
+</script>
+<script async  defer
+        src="https://maps.google.com/maps/api/js?key=AIzaSyA7UXVPRZlqsTwxpp9d7HPQHakSNNGEK7s&callback=mapviewModel.geocodeAddress"
+        onerror="googleError()"></script>
 </body>
 
 </html>

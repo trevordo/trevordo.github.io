@@ -54,8 +54,9 @@
 			}, 0);
 		}
 	};
-	// TODOmvc code ends here	
-	
+	// TODOmvc code ends here
+
+	// main viewmodel
 	var MainViewModel = (function () {
 		var self = this;
 
@@ -71,7 +72,7 @@
 			mapviewModel.markerArray.removeAll();
 			listviewModel.locationArray = [];
 			listviewModel.listOfLocations.removeAll();
-			
+
 			// clear query field
 			listviewModel.q('');
 
