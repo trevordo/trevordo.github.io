@@ -81,7 +81,7 @@ myList = {
 			mapviewModel.markerclearAll();
 			self.listOfLocations.removeAll();
 
-			// assign array with locationArray from Foursquare JSON request
+			// assign array 
 			var array = mapviewModel.markerArray();
 
 			// loop through each array index and find the query that matches the index of item.
