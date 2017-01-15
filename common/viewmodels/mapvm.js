@@ -8,16 +8,17 @@ myMaps = {
 		// set observable and arrays.  subscribe and publish for decoupled variable sync
 		this.inputcity = ko.observable('Boston').publishOn("inputLocation");
 		this.resultsMap = ko.observable();
-		this.markerArray = [];
+		this.infowindow = ko.observable();
+		// markerArray is to hold all the markers for the listOfLocations
+		this.markerArray = ko.observableArray();
 
 		// get the geocode of the input city
 		this.geocodeAddress = function () {
 
-			if (window.google === undefined) {
+			if (!window.google && !google.maps) {
 				// Map script is not loaded
 				alert("Please check your connection google maps could not be loaded...");
 			}
-
 
 			self.geocoder = new google.maps.Geocoder();
 			self.resultsMap = new google.maps.Map(document.getElementById('map_canvas'), {
@@ -55,11 +56,11 @@ myMaps = {
 		this.setMarkers = function (array) {
 
 			// clear the markers on the map
-			self.markerArray = [];
+			listviewModel.listOfLocations.removeAll()
 
 			// clear the infowindow
-			var infowindow = new google.maps.InfoWindow({
-				content: ""
+			self.infowindow = new google.maps.InfoWindow({
+				content: ''
 			});
 
 			// for each item in the forsquare array
@@ -68,7 +69,7 @@ myMaps = {
 				// set the position for the marker with each of the item lat and lng
 				// prepare the content for the infowindow
 				var myLatlng = new google.maps.LatLng(item.lat, item.lng);
-				var contentString = '<b>' + item.name + '</b>' +
+				var html = '<b>' + item.name + '</b>' +
 					'<br>' + 'Foursquare Rating: ' + item.rating +
 					'<br><br>' + item.address;
 
@@ -79,6 +80,7 @@ myMaps = {
 					title: item.name,
 					animation: google.maps.Animation.DROP,
 					id: item.id,
+					content: html,
 				};
 
 				// set the markerOptions to the map
@@ -87,24 +89,15 @@ myMaps = {
 				// use a map listener to click the marker on the map and bounce
 				google.maps.event.addListener(marker, 'click', function () {
 
-					// set the content of the infowindow with the content string
-					infowindow.setContent(contentString);
-
-					// add an animation to the marker
-					marker.setAnimation(google.maps.Animation.BOUNCE);
-					setTimeout(function () {
-						marker.setAnimation(null);
-					}, 1400);
-
-					// open the infowindow on click
-					infowindow.open(mapviewModel.resultsMap, this);
-
-					// pan to marker center
-					self.resultsMap.panTo(marker.getPosition());
+					// call and create an infowindow, add animation and pan
+					self.showInfo(marker);
 				});
 
-				// push the marker to the marker array
-				mapviewModel.markerArray.push(marker);
+				// push the marker to the marker array and list
+				// listOfLocations is active list with active filer
+				listviewModel.listOfLocations.push(marker);
+				// marker array is main marker list
+				self.markerArray.push(marker);
 			});
 
 			// show the markers
@@ -114,9 +107,9 @@ myMaps = {
 
 		// Clears the map on all markers in the array.
 		this.markerclearAll = function () {
-			for (var i = 0; i < self.markerArray.length; i++) {
+			for (var i = 0; i < listviewModel.listOfLocations().length; i++) {
 				// set the map for the marker to null
-				self.markerArray[i].setMap(null);
+				listviewModel.listOfLocations()[i].setMap(null);
 			}
 
 		};
@@ -125,11 +118,11 @@ myMaps = {
 		this.markershowAll = function () {
 
 			// go through each of the markers and 
-			for (var i = 0; i < self.markerArray.length; i++) {
+			for (var i = 0; i < listviewModel.listOfLocations().length; i++) {
 
 				// set the timeout and go thorugh each marker
 				var timeout = i * 100;
-				var marker = self.markerArray[i];
+				var marker = listviewModel.listOfLocations()[i];
 
 				// call the marker timer setup
 				self.markersetMap(marker, timeout);
@@ -148,8 +141,22 @@ myMaps = {
 			}, timeout);
 		};
 
-		this.showInfo = function (placeItem) {
-			// we want this function to take care of opening info windows
+		this.showInfo = function (marker) {
+			// set the content of the infowindow with the content string
+			self.infowindow.setContent(marker.content);
+
+			// add an animation to the marker
+			marker.setAnimation(google.maps.Animation.BOUNCE);
+			setTimeout(function () {
+				marker.setAnimation(null);
+			}, 1400);
+
+			// open the infowindow on click
+			self.infowindow.open(self.resultsMap, marker);
+
+			// pan to marker center
+			self.resultsMap.panTo(marker.getPosition());
 		};
+
 	},
 };

@@ -1,8 +1,3 @@
-/*
-2017-01-08
-my spa uses the Foursquare explore venue api
-*/
-
 var myList = myList || {};
 
 myList = {
@@ -27,7 +22,9 @@ myList = {
 		}, self);
 
 		// observableArray
+		// listOfLocations is the active and filtered list
 		this.listOfLocations = ko.observableArray();
+		// locationArray is to be populated by the Foursquare
 		this.locationArray = [];
 
 		//  Get locations from Foursquare API as json 
@@ -62,11 +59,8 @@ myList = {
 				console.log("incoming Text " + jqXHR.responseText);
 			}).always(function () {
 
-				// sync arrays
-				self.syncArrays();
-
 				// once foursqure is done run setMarkers to create markers from JSON request
-				mapviewModel.setMarkers(self.listOfLocations());
+				mapviewModel.setMarkers(self.locationArray);
 			});
 		};
 
@@ -88,18 +82,18 @@ myList = {
 			self.listOfLocations.removeAll();
 
 			// assign array with locationArray from Foursquare JSON request
-			var array = self.locationArray;
+			var array = mapviewModel.markerArray();
 
 			// loop through each array index and find the query that matches the index of item.
 			// if a match push to listOfLocations 
 			for (var x in array) {
 
 				// match query to index of array item
-				if (array[x].name.toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
+				if (array[x].title.toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
 
-					// push array item if it's a match to listOfLocations
+					// setmap and push array item if it's a match to listOfLocations
+					array[x].setMap(mapviewModel.resultsMap);
 					self.listOfLocations.push(array[x]);
-					mapviewModel.markerArray[x].setMap(mapviewModel.resultsMap);
 				}
 			}
 

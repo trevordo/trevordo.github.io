@@ -55,17 +55,7 @@
 		}
 	};
 	// TODOmvc code ends here	
-	//if (typeof google !== "undefined"){
-	if (window.google && google.maps) {
-		// Map script is already loaded
-		console.log("Map script is already loaded. Initialising");
-
-	} else {
-		console.log("loading Google map...");
-
-	}
 	
-
 	var MainViewModel = (function () {
 		var self = this;
 
@@ -78,7 +68,10 @@
 
 			// clear the markers on the map
 			mapviewModel.markerclearAll();
-			mapviewModel.locationArray = [];
+			mapviewModel.markerArray.removeAll();
+			listviewModel.locationArray = [];
+			listviewModel.listOfLocations.removeAll();
+
 
 			// clear query field
 			listviewModel.q('');
@@ -87,36 +80,6 @@
 			mapviewModel.geocodeAddress();
 
 		};
-
-		// new search city
-		this.newCity = function () {
-
-			// clear observableArray
-			listviewModel.locationArray = [];
-			listviewModel.listOfLocations.removeAll();
-
-			// load map and list
-			self.loadMap();
-		}.bind(this);
-
-		// click item on the list
-		this.gotoMarker = function (thisMarker) {
-
-			// get the id of the location and get the corresponding marker from the array
-			var i = thisMarker.id;
-
-			// check marker id in list to marker in map overlay
-			ko.utils.arrayForEach(mapviewModel.markerArray, function (marker) {
-
-				// if there is a match click and bounce the marker
-				if (i === marker.id) {
-
-					// open the infowindow
-					google.maps.event.trigger(marker, 'click');
-
-				}
-			});
-		}.bind(this);
 
 	})();
 
